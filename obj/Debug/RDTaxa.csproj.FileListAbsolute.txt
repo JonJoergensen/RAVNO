@@ -1,0 +1,12 @@
+F:\Projekter\RD Taxa\RDTaxa\RDTaxa\bin\RDTaxa.dll.config
+F:\Projekter\RD Taxa\RDTaxa\RDTaxa\bin\RDTaxa.dll
+F:\Projekter\RD Taxa\RDTaxa\RDTaxa\bin\RDTaxa.pdb
+F:\Projekter\RD Taxa\RDTaxa\RDTaxa\obj\Debug\RDTaxa.csprojResolveAssemblyReference.cache
+F:\Projekter\RD Taxa\RDTaxa\RDTaxa\obj\Debug\RDTaxa.dll
+F:\Projekter\RD Taxa\RDTaxa\RDTaxa\obj\Debug\RDTaxa.pdb
+R:\RD TaxaWeb\bin\RDTaxa.dll.config
+R:\RD TaxaWeb\bin\RDTaxa.dll
+R:\RD TaxaWeb\bin\RDTaxa.pdb
+R:\RD TaxaWeb\obj\Debug\RDTaxa.csprojResolveAssemblyReference.cache
+R:\RD TaxaWeb\obj\Debug\RDTaxa.dll
+R:\RD TaxaWeb\obj\Debug\RDTaxa.pdb
