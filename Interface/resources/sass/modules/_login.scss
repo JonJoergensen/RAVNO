@@ -1,0 +1,37 @@
+.box {
+    margin-top: 50px;
+    padding: 20px;
+
+    background-color: rgba(255,255,255,0.9);
+
+    @media #{$small-only} {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        width: 40px;
+    }
+
+    .button {
+        margin-top: 10px;
+    }
+
+    #schedulePicker {
+        font-weight: bold;
+
+        option {
+            font-weight: bold;
+
+            &[disabled] {
+                font-weight: normal;
+
+                text-decoration: line-through;
+            }
+        }
+    }
+}

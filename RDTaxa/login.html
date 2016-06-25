@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RD Taxa - Login</title>
+
+    <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css" />
+
+    <!-- Remove no-js enable html5 elements -->
+    <script type="text/javascript">
+        //Clear no-js
+        document.getElementsByTagName('html')[0].className = document.getElementsByTagName('html')[0].className.replace('no-js', '');
+        //Enable html5 elements in IE
+        'article aside footer header nav section time'.replace(/\w+/g, function (n) { document.createElement(n) });
+    </script>
+
+    <script type="text/javascript" src="resources/js/standalone/modernizr.min.js"></script>
+
+    <script src="js/vendor/fastclick.js"></script>
+
+    <!-- CSS -->
+    <link type="text/css" rel="stylesheet" href="resources/css/styles.css" />
+    
+
+</head>
+<body class="login-page">
+
+    <div class="main">
+
+        <div class="row">
+            <div class="large-6 medium-8 small-12 medium-centered columns">
+
+             
+
+                    <div class="box">
+                        <h2><img class="logo" src="resources/images/logo.png" /> Taxa Login</h2>
+
+                        <div class="login-view">
+                       
+                                <i class="fi-home"></i> Firma
+                                <input id="company" type="text" placeholder="Indtast dit firma" required />
+                        
+                        
+                                <i class="fi-torso"></i> Brugernavn
+                                <input id="username" type="text" placeholder="Indtast dit brugernavn" required />
+                      
+                         
+                                <i class="fi-lock"></i> Adgangskode
+                                <input id="password" type="password" placeholder="Indtast din adgangskode" required />
+                         
+                            <button data-login class="small success button expand">Log ind</button>
+                        </div>
+
+                        <div class="schedule-view hide">      
+                        
+                            <i class="fi-key"></i> Vælg vogn
+                
+                            <select id="schedulePicker">                           
+                            </select>
+
+                            <div class="row">
+                                <div class="small-6 medium-3 columns">
+                                    <button data-back class="small button">Tilbage</button>
+                                </div>
+                                <div class="small-6 medium-6 medium-offset-3 columns">
+                                    <button data-start class="small success button expand">Start tur</button>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+
+              
+          
+            </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+        <h2 id="modalTitle"></h2>
+        <p id="modalMessage"></p>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <script src="resources/js/script.js"></script>
+    
+</body>
+</html>

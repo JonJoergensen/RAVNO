@@ -1,26 +1,63 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDTaxa", "RDTaxa.csproj", "{42B981FC-B5D4-42DF-BA36-3D55243B38F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDTaxa", "RDTaxa\RDTaxa.csproj", "{42B981FC-B5D4-42DF-BA36-3D55243B38F0}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Interface", "http://localhost:44183", "{2DF04544-6765-447C-ADD2-416D4146DD0E}"
+	ProjectSection(WebsiteProperties) = preProject
+		UseIISExpress = "true"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_44183"
+		Debug.AspNetCompiler.PhysicalPath = "Interface\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_44183\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_44183"
+		Release.AspNetCompiler.PhysicalPath = "Interface\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_44183\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		SlnRelativePath = "Interface\"
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Debug|x86.ActiveCfg = Debug|x86
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Debug|x86.Build.0 = Debug|x86
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Release|Mixed Platforms.Build.0 = Release|x86
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Release|x86.ActiveCfg = Release|x86
 		{42B981FC-B5D4-42DF-BA36-3D55243B38F0}.Release|x86.Build.0 = Release|x86
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

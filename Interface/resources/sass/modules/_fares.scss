@@ -1,0 +1,250 @@
+nav {
+    color: white;
+
+    .logo {
+        width: 28px;
+        height: 28px;
+        margin-right: 7px;
+        margin-left: 10px;
+    }
+
+    .farename {
+        font-size: 13px !important;
+
+        text-transform: uppercase;
+
+        //color: blue;
+    }
+
+    [data-logout] {
+        padding-right: 15px !important;
+
+        text-align: right;
+    }
+}
+
+
+.fares-info {
+    font-size: 14px;
+
+    margin: 0;
+    padding: 15px 10px 10px;
+
+    text-transform: uppercase;
+
+    background-color: rgba(255,255,255,0.8); // $bg-trans;
+    .fares-timestamp {
+        text-align: right;
+    }
+
+    .no-fares {
+        margin: 10px 0;
+        padding: 15px;
+
+        background-color: white;
+    }
+}
+
+
+
+
+
+.accordion {
+    margin-left: 0;
+
+    .accordion-navigation {
+        @include transition(all 300ms ease-in-out);
+
+        border-bottom: solid 1px #c9c9c9;
+
+        &.passed {
+            @include opacity(1.0);
+
+            .item-link {
+                border-color: grey;
+
+                .time i.fi-check {
+                    display: inline-block;
+
+                    color: green;
+                }
+            }
+        }
+
+
+
+
+
+        .item-link {
+            position: relative;
+
+            min-height: 100px;
+
+
+            .fi-plus, .fi-minus {
+                @include transition(opacity, 500ms, ease-in-out);
+
+                font-size: 18px;
+
+                position: absolute;
+                top: calc(50% - 10px);
+                right: 10px;
+            }
+
+            .fi-minus {
+                @include opacity(0);
+            }
+
+
+            &[aria-expanded="true"] {
+                .fi-minus {
+                    @include opacity(1);
+                    @include transition(opacity, 500ms, ease-in-out);
+                }
+
+                .fi-plus {
+                    @include opacity(0);
+                    @include transition(opacity, 500ms, ease-in-out);
+                }
+            }
+
+            .time {
+                font-weight: bold;
+
+                float: left;
+
+                width: 50%;
+                margin-bottom: 10px;
+
+                i.fi-check {
+                    display: none;
+                    float: left;
+
+                    margin-right: 5px;
+                }
+            }
+
+            .vehicle-type {
+                font-weight: bold;
+
+                float: right;
+
+                width: 50%;
+                margin-bottom: 10px;
+
+                text-align: right;
+            }
+
+            .passengersAmount {
+                font-weight: normal;
+
+                float: right;
+
+                width: 50%;
+
+                text-align: right;
+            }
+
+            .places {
+                font-weight: normal;
+
+                float: left;
+
+                width: 50%;
+            }
+
+
+            .first-pickup, .last-destination {
+                display: block;
+                float: none;
+                clear: both;
+            }
+        }
+
+        .item-content {
+            padding: 15px;
+
+            .details {
+                font-size: 14px;
+
+                text-transform: uppercase;
+            }
+
+
+            .passenger-time {
+                font-weight: bold;
+
+                margin-top: 3px;
+                margin-bottom: 3px;
+
+                &.status-cancelled, &.status-absent, &.status-noshow {
+                    text-decoration: line-through;
+
+                    .status-text {
+                        display: inline-block;
+
+                        margin-right: 8px;
+
+                        text-decoration: none;
+                    }
+                }
+
+                &.status-cancelled .status-text {
+                    color: $cancel;
+                }
+
+                &.status-absent .status-text {
+                    color: $absent;
+                }
+
+                &.status-noshow .status-text {
+                    color: $noshow;
+                }
+            }
+
+
+            .passenger-info {
+                margin-left: 10px;
+                padding-bottom: 20px;
+                padding-left: 10px;
+
+                border-left: solid 2px green;
+
+                &:after {
+                    @include transform(rotate(-45deg));
+
+                    position: relative;
+                    top: 26px;
+                    left: -16px;
+
+                    display: inline-block;
+
+                    width: 10px;
+                    height: 10px;
+
+                    content: "";
+
+                    border-bottom: solid 2px green;
+                    border-left: solid 2px green;
+                }
+
+
+                &.status-cancelled, &.status-absent, &.status-noshow {
+                    text-decoration: line-through;
+                }
+
+                &:last-child {
+                    margin-left: 5px;
+                    padding-left: 5px;
+
+                    border-left: none;
+
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
