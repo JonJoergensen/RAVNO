@@ -390,12 +390,6 @@
     <Content Include="css\foundation-icons\foundation-icons.eot" />
     <Content Include="css\foundation-icons\foundation-icons.ttf" />
     <Content Include="css\foundation-icons\foundation-icons.woff" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />

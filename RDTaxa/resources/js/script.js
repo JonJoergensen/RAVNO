@@ -2711,7 +2711,7 @@ define('login',['jquery'], function ($) {
         webserviceUrl = webserviceUrl;
 
         if (location.hostname.indexOf("test.ravno") > -1) {
-            $("body").addClass("test-env");
+            $(".title-details").text(" (Testsite)");
         }
     }
     else if (location.hostname.indexOf("ravno") > -1)
@@ -3502,13 +3502,7 @@ define('fares',['jquery', 'tinysort'], function ($, tinysort) {
 
     // Webservice url
     if (location.hostname.indexOf("test.ravno") > -1 || location.hostname.indexOf("taxaplan.ravno") > -1) {
-        webserviceUrl = webserviceUrl;
-
-
-        if (location.hostname.indexOf("test.ravno") > -1) {
-            $("body").addClass("test-env");
-        }
-        
+        webserviceUrl = webserviceUrl;        
     }
     else if (location.hostname.indexOf("ravno") > -1) {
         webserviceUrl = "/rdTaxa/" + webserviceUrl;
@@ -3540,7 +3534,7 @@ define('fares',['jquery', 'tinysort'], function ($, tinysort) {
                         // Clear storage
                         ClearStorage();
 
-                        ShowAlert("Tak", "Din vagt er frigivet og du er nu logget ud. Du bliver omstillet til forsiden om 5 sek...");
+                        ShowAlert("Tak", "Din vagt er frigivet og du er nu logget ud. Du bliver omstillet til forsiden...");
 
 
                         setTimeout(function () {
@@ -3567,7 +3561,7 @@ define('fares',['jquery', 'tinysort'], function ($, tinysort) {
 
             ClearStorage();
 
-            ShowAlert("Tak", "Du er ikke på nogen vagt, og er nu logget ud. Du bliver omstillet til forsiden om 5 sek...");
+            ShowAlert("Tak", "Du er ikke på nogen vagt, og er nu logget ud. Du bliver omstillet til forsiden...");
 
 
             setTimeout(function () {

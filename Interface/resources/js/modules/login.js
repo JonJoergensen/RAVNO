@@ -13,7 +13,7 @@ define(['jquery'], function ($) {
         webserviceUrl = webserviceUrl;
 
         if (location.hostname.indexOf("test.ravno") > -1) {
-            $("body").addClass("test-env");
+            $(".title-details").text(" (Testsite)");
         }
     }
     else if (location.hostname.indexOf("ravno") > -1)
