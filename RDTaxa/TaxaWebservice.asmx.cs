@@ -599,14 +599,13 @@ namespace RDTaxa
 
 
             //Men den her skal prøves
-
             string sqlTure = " SELECT KoreTurID, AfgangTid, AnkomstTid, AfgangSted, AnkomstSted, Bemarkning, Status FROM KorePlan ";
             sqlTure += "WHERE (Dato IS NULL) AND (Vagt = " + VagtID.ToString() + ") AND (NOT (KoreTurID IN (SELECT MasterKoreTurIdent FROM KorePlan AS K1 ";
-            sqlTure += "WHERE (Dato = '" + date.ToString("dd-MM-yyyy") + "')))) AND (AutoType = " + GetWeekday(date).ToString() + ") AND (KoreUger = 1 OR KoreUger = " + GetWeekNumber(date).ToString() + ") ";
+            sqlTure += "WHERE (Dato = @Dato) AND NOT (MasterKoreTurIdent IS NULL)))) AND (AutoType = " + GetWeekday(date).ToString() + ") AND (KoreUger = 1 OR KoreUger = " + GetWeekNumber(date).ToString() + ") ";
             sqlTure += "AND ((SELECT COUNT(*) AS Expr1 FROM KorePlanPassager AS KorePlanPassager_1 WHERE (KoreTurIdent = KorePlan.KoreTurID)) > 0) ";
-            sqlTure += "OR  (Dato = '" + date.ToString("dd-MM-yyyy") + "') AND (Vagt = " + VagtID.ToString() + ") ";
-             sqlTure += "AND ((SELECT COUNT(*) AS Expr1 FROM KorePlanPassager AS KorePlanPassager_1 WHERE (KoreTurIdent = KorePlan.KoreTurID)) > 0) ";
-           sqlTure += "ORDER BY AfgangTid, AnkomstTid";
+            sqlTure += "OR  (Dato = @Dato) AND (Vagt = " + VagtID.ToString() + ") ";
+            sqlTure += "AND ((SELECT COUNT(*) AS Expr1 FROM KorePlanPassager AS KorePlanPassager_1 WHERE (KoreTurIdent = KorePlan.KoreTurID)) > 0) ";
+            sqlTure += "ORDER BY AfgangTid, AnkomstTid";
 
             using (SqlConnection con = new SqlConnection(user.Connection))
             {
@@ -619,7 +618,7 @@ namespace RDTaxa
                 
 
                         //cmd.CommandType = CommandType.Text;
-                        //cmd.Parameters.Add("@Dato", SqlDbType.Date).Value = date;
+                        cmd.Parameters.Add("@Dato", SqlDbType.Date).Value = date;
                         //cmd.Parameters.Add("@LigeUligeUge", SqlDbType.Int).Value = GetWeekNumber(date);
                         //cmd.Parameters.Add("@UgeDag", SqlDbType.Int).Value = GetWeekday(date); // DateTime.Now.DayOfWeek;
                         //cmd.Parameters.Add("@VagtID", SqlDbType.BigInt).Value = VagtID;
@@ -693,19 +692,32 @@ namespace RDTaxa
         {
             List<Passenger> ListPassengers = new List<Passenger>();
 
-
-            string sqlPassager=" SELECT KorePlanPassager.PassagerID, KorePlanPassager.KoreTurIdent, CASE WHEN KundeIdent = 0 THEN CONVERT(nvarchar, AntalPassagerer) + ' passagerer' ELSE kunder.kundenavn END AS Kunde, ";
+            string sqlPassager = " SELECT KorePlanPassager.PassagerID, KorePlanPassager.KoreTurIdent, CASE WHEN KundeIdent = 0 THEN CONVERT(nvarchar, AntalPassagerer) + ' passagerer' ELSE kunder.kundenavn END AS Kunde, ";
             sqlPassager += "KorePlanPassager.AfgangTid, KorePlanPassager.AnkomstTid, KorePlanPassager.Afgangsted, KorePlanPassager.AnkomstSted, KorePlanPassager.Bemærkning, ";
             sqlPassager += "KorePlanPassager.Bagage, KorePlanPassager.Status, KorePlanPassager.MasterPassagerIdent, KorePlanPassager.Dato, KorePlanPassager.AutoType, KorePlanPassager.KoreUger ";
             sqlPassager += "FROM Kunder RIGHT OUTER JOIN KorePlanPassager ON Kunder.KundeID = KorePlanPassager.KundeIdent LEFT OUTER JOIN KorePlan ON KorePlanPassager.KoreTurIdent = KorePlan.KoreTurID ";
             sqlPassager += "WHERE (KorePlanPassager.AutoType = " + GetWeekday(date).ToString() + ") AND (KorePlanPassager.KoreUger = 1 OR KorePlanPassager.KoreUger = " + GetWeekNumber(date).ToString() + ") AND (KorePlanPassager.Dato IS NULL) ";
-            sqlPassager += "AND ('" + date.ToString("dd-MM-yyyy") + "' BETWEEN (SELECT StartDato FROM Kunder AS Kunder_3 WHERE (KundeID = KorePlanPassager.KundeIdent)) AND ";
+            sqlPassager += "AND (@Dato BETWEEN (SELECT StartDato FROM Kunder AS Kunder_3 WHERE (KundeID = KorePlanPassager.KundeIdent)) AND ";
             sqlPassager += "(SELECT SlutDato FROM Kunder AS Kunder_2 WHERE (KundeID = KorePlanPassager.KundeIdent))) AND (KorePlan.Vagt = " + VagtID.ToString() + ") AND ";
             sqlPassager += "(NOT (KorePlanPassager.PassagerID IN (SELECT MasterPassagerIdent FROM KorePlanPassager AS KorePlanPassager_1 ";
-            sqlPassager += "WHERE (Dato = '" + date.ToString("dd-MM-yyyy") + "') AND (NOT (MasterPassagerIdent IS NULL))))) OR (KorePlanPassager.Dato = '" + date.ToString("dd-MM-yyyy") + "') AND ('" + date.ToString("dd-MM-yyyy") + "' BETWEEN ";
+            sqlPassager += "WHERE (Dato = @Dato) AND (NOT (MasterPassagerIdent IS NULL))))) OR (KorePlanPassager.Dato = @Dato) AND (@Dato BETWEEN ";
             sqlPassager += "(SELECT StartDato FROM Kunder AS Kunder_3 WHERE (KundeID = KorePlanPassager.KundeIdent)) AND ";
             sqlPassager += "(SELECT SlutDato FROM Kunder AS Kunder_2 WHERE (KundeID = KorePlanPassager.KundeIdent))) AND (KorePlan.Vagt = " + VagtID.ToString() + ") ";
             sqlPassager += "ORDER BY KorePlanPassager.AfgangTid, KorePlanPassager.AnkomstTid";
+
+            //string sqlPassager = " SELECT KorePlanPassager.PassagerID, KorePlanPassager.KoreTurIdent, CASE WHEN KundeIdent = 0 THEN CONVERT(nvarchar, AntalPassagerer) + ' passagerer' ELSE kunder.kundenavn END AS Kunde, ";
+            //sqlPassager += "KorePlanPassager.AfgangTid, KorePlanPassager.AnkomstTid, KorePlanPassager.Afgangsted, KorePlanPassager.AnkomstSted, KorePlanPassager.Bemærkning, ";
+            //sqlPassager += "KorePlanPassager.Bagage, KorePlanPassager.Status, KorePlanPassager.MasterPassagerIdent, KorePlanPassager.Dato, KorePlanPassager.AutoType, KorePlanPassager.KoreUger ";
+            //sqlPassager += "FROM Kunder RIGHT OUTER JOIN KorePlanPassager ON Kunder.KundeID = KorePlanPassager.KundeIdent LEFT OUTER JOIN KorePlan ON KorePlanPassager.KoreTurIdent = KorePlan.KoreTurID ";
+            //sqlPassager += "WHERE (AutoType = " + GetWeekday(date).ToString() + ") AND (KoreUger = 1 OR KoreUger = " + GetWeekNumber(date).ToString() + ") AND ";
+            //sqlPassager += "(NOT (PassagerID IN (SELECT MasterPassagerIdent FROM KorePlanPassager AS KorePlanPassager_1 WHERE (Dato = '" + date.ToString("dd-MM-yyyy") + "') AND (NOT (MasterPassagerIdent IS NULL))))) AND (Dato IS NULL) AND ";
+            //sqlPassager += "(('" + date.ToString("dd-MM-yyyy") + "') BETWEEN (SELECT StartDato FROM Kunder AS Kunder_3 WHERE (KundeID = KorePlanPassager.KundeIdent)) AND ";
+            //sqlPassager += "(SELECT SlutDato FROM Kunder AS Kunder_2 WHERE (KundeID = KorePlanPassager.KundeIdent))) ";
+            //sqlPassager += "AND (MasterStartDato IS NULL OR MasterStartDato <= '" + date.ToString("dd-MM-yyyy") + "') OR (Dato = '" + date.ToString("dd-MM-yyyy") + "') AND ";
+            //sqlPassager += "(('" + date.ToString("dd-MM-yyyy") + "') BETWEEN (SELECT StartDato FROM Kunder AS Kunder_3 WHERE (KundeID = KorePlanPassager.KundeIdent)) AND ";
+            //sqlPassager += "(SELECT SlutDato FROM Kunder AS Kunder_2 WHERE KundeID = KorePlanPassager.KundeIdent)))  OR ";
+            //sqlPassager += "(Dato = '" + date.ToString("dd-MM-yyyy") + "') AND (KundeIdent = 0)) AND (KorePlan.Vagt = " + VagtID.ToString() + ") ";
+            //sqlPassager += "ORDER BY KorePlanPassager.AfgangTid, KorePlanPassager.AnkomstTid";
 
 
 
@@ -719,7 +731,7 @@ namespace RDTaxa
 
                         //cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add("@ChaufforID", SqlDbType.Int).Value = int.Parse(user.ChaufforID);
-                        //cmd.Parameters.Add("@Dato", SqlDbType.Date).Value = date;
+                        cmd.Parameters.Add("@Dato", SqlDbType.Date).Value = date;
                         //cmd.Parameters.Add("@UgeDag", SqlDbType.Int).Value = GetWeekday(date); // DateTime.Now.DayOfWeek;
                         //cmd.Parameters.Add("@LigeUligeUge", SqlDbType.Int).Value = GetWeekNumber(date);
 
