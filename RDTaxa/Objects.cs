@@ -67,7 +67,14 @@ namespace RDTaxa
             set { status = value; }
         }
 
-        private List<Passenger> listPassengers = new List<Passenger>();
+        private string timestamp;
+        public string TimeStamp
+        {
+            get { return timestamp; }
+            set { timestamp = value; }
+        }
+
+       private List<Passenger> listPassengers = new List<Passenger>();
 
         public List<Passenger> ListPassengers
         {
@@ -90,6 +97,7 @@ namespace RDTaxa
         private string ankomstTid;
         private string afgangssted;
         private string ankomststed;
+        private string timestamp;
 
         public int PassagerID
         {
@@ -152,6 +160,12 @@ namespace RDTaxa
             get { return ankomststed; }
             set { ankomststed = value; }
         }
+
+       public string TimeStamp
+        {
+            get { return timestamp; }
+            set { timestamp = value; }
+        }   
     }
 
     public class User

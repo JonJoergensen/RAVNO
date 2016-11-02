@@ -89,6 +89,7 @@ namespace RDTaxa
                     // Hvis Cust.DriftStatus < 3 er alt OK  (Cust.DriftStatus = 3 betyder, at systemet er lukket.)
                     strJSON = js.Serialize("User disabled");
                 }
+                
             }
             else
             {
@@ -599,7 +600,7 @@ namespace RDTaxa
 
 
             //Men den her skal prøves
-            string sqlTure = " SELECT KoreTurID, AfgangTid, AnkomstTid, AfgangSted, AnkomstSted, Bemarkning, Status FROM KorePlan ";
+            string sqlTure = " SELECT KoreTurID, TimeStamp, AfgangTid, AnkomstTid, AfgangSted, AnkomstSted, Bemarkning, Status FROM KorePlan ";
             sqlTure += "WHERE (Dato IS NULL) AND (Vagt = " + VagtID.ToString() + ") AND (NOT (KoreTurID IN (SELECT MasterKoreTurIdent FROM KorePlan AS K1 ";
             sqlTure += "WHERE (Dato = @Dato) AND NOT (MasterKoreTurIdent IS NULL)))) AND (AutoType = " + GetWeekday(date).ToString() + ") AND (KoreUger = 1 OR KoreUger = " + GetWeekNumber(date).ToString() + ") ";
             sqlTure += "AND ((SELECT COUNT(*) AS Expr1 FROM KorePlanPassager AS KorePlanPassager_1 WHERE (KoreTurIdent = KorePlan.KoreTurID)) > 0) ";
@@ -640,6 +641,7 @@ namespace RDTaxa
                             if (!String.IsNullOrWhiteSpace(reader["KoreTurID"].ToString()))
                                 fare.KoreTurID = int.Parse(reader["KoreTurID"].ToString());
 
+                            fare.TimeStamp = BitConverter.ToString((byte[])reader["TimeStamp"]).Replace("-", "");
 
                             if (!String.IsNullOrWhiteSpace(reader["AfgangTid"].ToString()))
                             {
@@ -692,7 +694,7 @@ namespace RDTaxa
         {
             List<Passenger> ListPassengers = new List<Passenger>();
 
-            string sqlPassager = " SELECT KorePlanPassager.PassagerID, KorePlanPassager.KoreTurIdent, CASE WHEN KundeIdent = 0 THEN CONVERT(nvarchar, AntalPassagerer) + ' passagerer' ELSE kunder.kundenavn END AS Kunde, ";
+            string sqlPassager = " SELECT KorePlanPassager.PassagerID, korePlanPassager.TimeStamp, KorePlanPassager.KoreTurIdent, CASE WHEN KundeIdent = 0 THEN CONVERT(nvarchar, AntalPassagerer) + ' passagerer' ELSE kunder.kundenavn END AS Kunde, ";
             sqlPassager += "KorePlanPassager.AfgangTid, KorePlanPassager.AnkomstTid, KorePlanPassager.Afgangsted, KorePlanPassager.AnkomstSted, KorePlanPassager.Bemærkning, ";
             sqlPassager += "KorePlanPassager.Bagage, KorePlanPassager.Status, KorePlanPassager.MasterPassagerIdent, KorePlanPassager.Dato, KorePlanPassager.AutoType, KorePlanPassager.KoreUger ";
             sqlPassager += "FROM Kunder RIGHT OUTER JOIN KorePlanPassager ON Kunder.KundeID = KorePlanPassager.KundeIdent LEFT OUTER JOIN KorePlan ON KorePlanPassager.KoreTurIdent = KorePlan.KoreTurID ";
@@ -745,6 +747,8 @@ namespace RDTaxa
 
                             if (!String.IsNullOrWhiteSpace(reader["PassagerID"].ToString()))
                                 passenger.PassagerID = int.Parse(reader["PassagerID"].ToString());
+
+                            passenger.TimeStamp = BitConverter.ToString((byte[])reader["TimeStamp"]).Replace("-", "");
 
 
                             if (!String.IsNullOrWhiteSpace(reader["KoreTurIdent"].ToString()))
