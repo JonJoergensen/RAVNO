@@ -17,6 +17,9 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
     }
 
 
+
+
+
     $("[data-logout]").click(function () {
   
         
@@ -112,7 +115,7 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
     // DatePicker event 
     $(document).on("change", "#datePicker", function () {
                
-            
+        firstRun = true;
         CheckFares();
     });
 
@@ -278,7 +281,51 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
     }
 
     
+    function FindFareChanges(latestFaresString) {
 
+        // parse string to object
+        var latestFares = JSON.parse(latestFaresString);
+
+        // Get and parse current fares to object
+        var currentFaresString = localStorage.getItem('rdTaxaFares');
+        var currentFares = JSON.parse(currentFaresString);
+
+        // Loop through lates fares to find any that matches with currentFares
+        for (var i = 0; i < latestFares.length; i++) {
+
+            var latestFareTimestamp = latestFares[i].TimeStamp;
+            var latestFareKoreTurID = latestFares[i].KoreTurID;
+
+            var matchFound = false;
+
+            // Find matching fares with a current fare 
+            for (var j = 0; j < currentFares.length; j++) {
+
+                var currentFareTimestamp = currentFares[j].TimeStamp;
+                var currentFareKoreTurID = currentFares[j].KoreTurID;
+
+                // Found
+                if(latestFareTimestamp == currentFareTimestamp && latestFareKoreTurID == currentFareKoreTurID)
+                {
+                    matchFound = true;
+                    break; 
+                }
+            }
+
+            // If no match could be found then this is an updated fare or a new fare
+            if(matchFound == false)
+            {
+                latestFares[i].IsUpdated = true;
+            }
+        }
+
+        // Stringify it again
+        var latestFaresString = JSON.stringify(latestFares);
+
+        return latestFaresString;
+    }
+
+    
 
     function HTMLFares() {
         // Retrieve the object from storage
@@ -289,9 +336,6 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
 
         for (var i = 0; i < fares.length; i++)
         {
-
-          
-
             htmlFare += '<li class="accordion-navigation ';
 
             // Add status
@@ -304,6 +348,13 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
             else if (fares[i].Status == 3) {
                 htmlFare += ' status-noshow ';
             }
+            
+            // Add class if the fare is new or has been updated
+            if (fares[i].IsUpdated == true) {
+
+                htmlFare += ' status-updated ';
+            }
+
 
             htmlFare += '" ';
 
@@ -653,12 +704,13 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
                                     dataType: "json",
                                     success: function (result) {
                                       
+                              
                                         var fares = JSON.parse(result.d);
-
+                     
 
                                         // Save to local storage
-                                        var faresString = JSON.stringify(fares); // Put fares into storage               
-
+                                        var faresString = JSON.stringify(fares); // Put fares into storage      
+                                       
                                         var currentTime = new Date(); //.toLocaleTimeString().replace("/:*(\d{2}:\d{2}:\d{2}):*/", "$1");
                                         var minutes = currentTime.getMinutes();
                                         if (minutes < 10) {
@@ -683,25 +735,26 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
 
 
                                         // Render list fares on first run
-                                        if (firstRun) {
-
+                                        if (firstRun == true) {
+                                 
                                             localStorage.setItem('rdTaxaFares', faresString);
                                             localStorage.setItem('rdTaxaFaresTimestamp', JSON.stringify(timeStampObject));
 
-                                            HTMLFares();
-
-
+                                            HTMLFares();                                            
+                   
                                             firstRun = false;
                                         }
-                                        else {
+                                        else {                            
+
                                             // Interval Check
                                             // Compare new fares vs old fares. Has anything changed.
                                             // If yes, then update the list
                                             var oldFares = localStorage.getItem('rdTaxaFares');
 
-
                                             // Only update fares cache if it is different
                                             if (faresString != oldFares) {
+                                                                                          
+                                                faresString = FindFareChanges(faresString);
 
                                                 localStorage.setItem('rdTaxaFares', faresString);
                                                 localStorage.setItem('rdTaxaFaresTimestamp', JSON.stringify(timeStampObject));
@@ -711,17 +764,13 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
 
                                             }
                                             else {
-
                                                 UpdateFaresAccordingToTime();
                                             }
                                         }
 
-
-                                        setTimeout(function () { CheckFares(); }, updateTimer);
-
+                                        
                                     },
                                     error: function (e) {
-
                                         ShowAlert('Error', JSON.stringify(e));
                                     }
                                 });
@@ -830,5 +879,7 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
     }
 
 
+    // Get Fares Every 60 seconds
+    setInterval(function () { CheckFares(); }, updateTimer);
 
 });

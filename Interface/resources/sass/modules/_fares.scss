@@ -71,7 +71,10 @@ nav {
             }
         }
 
-
+        &.status-updated {
+            border-left: solid 5px $cancel;
+            background-color: $cancel;
+        }
 
 
 

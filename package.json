@@ -9,7 +9,7 @@
   "prototype": "_prototype",
   "prototyperesources": "RDTaxa/resources",
   "resources": "Interface/resources",
- "configs": "Interface/configs",
+  "configs": "Interface/configs",
   "html": "Interface/html",
   "devDependencies": {
     "grunt": "^0.4.5",
@@ -26,7 +26,8 @@
     "grunt-open": "^0.2.3",
     "grunt-preprocess": "^4.0.0",
     "grunt-processhtml": "^0.3.3",
-    "grunt-sass": "^0.18.1",
+    "grunt-sass": "^1.1.0",
+    "gulp-sass": "^2.3.2",
     "jit-grunt": "^0.9.0",
     "load-grunt-config": "^0.13.2",
     "time-grunt": "^1.0.0"
