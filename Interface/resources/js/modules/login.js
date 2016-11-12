@@ -123,18 +123,24 @@ define(['jquery'], function ($) {
                         // Code for localStorage/sessionStorage.      
                         if (typeof (Storage) !== "undefined") {
 
-                                
-                            // Remember info
-                            localStorage.setItem('rdTaxaLoginCompany', company);
-                            localStorage.setItem('rdTaxaLoginUsername', username);
-                            localStorage.setItem('rdTaxaLoginPassword', password);
-                            localStorage.setItem('rdTaxaLoginChaufforID', user.ChaufforID);
 
-                            
-                            GetVagtPlan();
+                            if (user.ChaufforID) {                         
+
+                                // Remember info
+                                localStorage.setItem('rdTaxaLoginCompany', company);
+                                localStorage.setItem('rdTaxaLoginUsername', username);
+                                localStorage.setItem('rdTaxaLoginPassword', password);
+                                localStorage.setItem('rdTaxaLoginChaufforID', user.ChaufforID);
 
 
-                        } else {
+                                GetVagtPlan();
+                            }
+                            else {
+                                // Sorry! No Web Storage support..
+                                ShowAlert("Login mislykkedes", "Din bruger: " + username + " har ikke et chaufførID, så derfor kan vi ikke tildele dig et tur. Log ind med en anden bruger eller kontakt administrationen");
+                            }
+
+                        }else {
                             // Sorry! No Web Storage support..
                             ShowAlert("Login mislykkedes", "Log ind oplysninger kan ikke gemmes i denne browser. Proev venligst en anden browser");
                         }
@@ -193,7 +199,7 @@ define(['jquery'], function ($) {
                             var userIsAttachedToSchedule = false;
 
                             // Check if user is already attached to a schedule, and if true direct him to it
-                            if (chaufforID != null) {
+                            if (chaufforID) {
 
                                 for (var i = 0; i < vagtplan.length; i++) {
 

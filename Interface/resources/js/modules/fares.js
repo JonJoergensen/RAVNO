@@ -47,23 +47,22 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
 
                         ShowAlert("Tak", "Din vagt er frigivet og du er nu logget ud. Du bliver omstillet til forsiden...");
 
-
-                        setTimeout(function () {
-                            // Redirect
-                            location.href = "login.html";
-
-                        }, 7000);
-
-
                     }
                     else {
-                        ShowAlert("Fejl", result);
+                        ShowAlert("Fejl", "Din brugers vagt blev ikke frigivet korrekt. <br />Til reference var dine logud informationer. Brugernavn: " + username + " Adgangskode: " + password + " Firma: " + company + " VagtID: " + vagtID + "<br />Du bliver nu omstillet til forsiden...");
                     }
+
+                    setTimeout(function () {
+                        // Redirect
+                        location.href = "login.html";
+
+                    }, 7000);
 
                 },
                 error: function (xhr, textStatus, errorThrown) {
 
-                    ShowAlert("Fejl", errorThrown);
+
+                    ShowAlert("Fejl", textStatus + errorThrown);
                 }
             });
 
@@ -620,7 +619,8 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
                 },
                 error: function (xhr, textStatus, errorThrown) {
 
-                    ShowAlert("Fejl", errorThrown);
+
+                    ShowAlert("Fejl", textStatus + errorThrown);
                 }
             });
 
@@ -789,7 +789,7 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
                 },
                 error: function (xhr, textStatus, errorThrown) {
 
-                    ShowAlert("Fejl", errorThrown);
+                    ShowAlert("Fejl", textStatus + errorThrown);
                 }
             });       
 
