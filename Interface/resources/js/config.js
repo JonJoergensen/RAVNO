@@ -8,12 +8,14 @@ requirejs.config({
         //Libs
         'jquery'            : '../libs/jquery-1.11.3.min',
         'selectivizr'       : '../libs/selectivizr-min',
-        'jquery.cookie'            : '../libs/jquery.cookie',
+        'jquery.cookie': '../libs/jquery.cookie',
+        'howler': '../libs/howler',
 
         //Plugins
         'mouse-detect': '../plugins/mouse-detect',
         'fastclick': '../plugins/fastclick',
         'tinysort': '../plugins/tinysort',
+ 
 
         // Foundation
         'foundation': '../libs/foundation/foundation',

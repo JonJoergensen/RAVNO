@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RDTaxa", "RDTaxa\RDTaxa.csproj", "{42B981FC-B5D4-42DF-BA36-3D55243B38F0}"
 EndProject
@@ -53,11 +53,13 @@ Global
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Debug|x86.Build.0 = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
 		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|x86.ActiveCfg = Debug|Any CPU
+		{2DF04544-6765-447C-ADD2-416D4146DD0E}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

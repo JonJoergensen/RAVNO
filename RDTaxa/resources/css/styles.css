@@ -6333,6 +6333,9 @@ wadawdawd
 .button {
   text-transform: uppercase; }
 
+#welcomeButton {
+  margin-bottom: 0; }
+
 .box {
   margin-top: 50px;
   padding: 20px;

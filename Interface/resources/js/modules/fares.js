@@ -1,5 +1,5 @@
 /*global define:false, Modernizr:false */
-define(['jquery', 'tinysort'], function ($, tinysort) {
+define(['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) {
     //'use strict';
 
   
@@ -7,6 +7,8 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
     var updateTimer = 60 * 1000;
     var webserviceUrl = "TaxaWebservice.asmx";
     var vagtID = null;
+    var sound;
+    var playFareChangeSound = false;
 
     // Webservice url
     if (location.hostname.indexOf("test.ravno") > -1 || location.hostname.indexOf("taxaplan.ravno") > -1) {
@@ -100,6 +102,16 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
             if (userName != null)
             {            
                 CheckFares();
+
+                // Get Fares Every 60 seconds
+                setInterval(function () { CheckFares(); }, updateTimer);
+
+
+                LoadSounds();               
+
+      
+                ShowWelcomeMessage();
+
             }
             else {
                 location.href = "login.html";
@@ -315,6 +327,9 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
             if(matchFound == false)
             {
                 latestFares[i].IsUpdated = true;
+
+                
+                playFareChangeSound = true;
             }
         }
 
@@ -756,11 +771,21 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
                                                                                           
                                                 faresString = FindFareChanges(faresString);
 
+                                          
+
                                                 localStorage.setItem('rdTaxaFares', faresString);
                                                 localStorage.setItem('rdTaxaFaresTimestamp', JSON.stringify(timeStampObject));
 
                                                 // Output Fares to HTML
                                                 HTMLFares();
+
+
+                                                // Play fare change sound if anything has changed
+                                                if (playFareChangeSound == true)
+                                                {
+                                                    sound.play();
+                                                    playFareChangeSound = false;
+                                                }                                                
 
                                             }
                                             else {
@@ -869,6 +894,46 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
         $alert.foundation('reveal', 'open');
     }
 
+    function ShowWelcomeMessage()
+    {
+        var title = "Goddag";
+
+
+        var now = new Date();
+
+        var hours = now.getHours();
+        if (hours <= 9) {
+            title = "Godmorgen";
+        }
+        if (hours > 9 && hours <= 12) {
+            title = "God formiddag";
+        }
+        if (hours > 12 && hours <= 18) {
+            title = "God eftermiddag";
+        }
+        if (hours > 18) {
+            title = "Godaften";
+        }
+
+        title = title + " og velkommen"
+
+
+        var message = "Her kan du se din køreplan for idag og andre dage. Kør forsigtigt og god tur.<br /><br />";
+        message += "<button id='welcomeButton' class='button'>Se køreplan</button>";
+
+        
+        ShowAlert(title, message);
+
+
+        $("document").on("click", "#welcomeButton", function () {
+
+            $('#myModal').foundation('reveal', 'close');
+        });
+
+       
+
+    }
+
 
     function ClearStorage() {
         localStorage.removeItem('rdTaxaLoginCompany');
@@ -878,8 +943,24 @@ define(['jquery', 'tinysort'], function ($, tinysort) {
 
     }
 
+    function LoadSounds() {
 
-    // Get Fares Every 60 seconds
-    setInterval(function () { CheckFares(); }, updateTimer);
+        var soundFolder = "/resources/images/sounds/";
 
+        sound = new Howl({
+            src: [soundFolder + 'oringz-w424.mp3', soundFolder + 'oringz-w424.ogg'],
+            preload: true,
+            autoplay: false,
+            volume: 1.0
+        });
+          
+    }
+
+
+
+
+    
+
+
+  
 });
