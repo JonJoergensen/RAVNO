@@ -7174,16 +7174,16 @@ define('fares',['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) 
 
 
         var message = "Her kan du se din køreplan for idag og andre dage. Kør forsigtigt og god tur.<br /><br />";
-        message += "<button id='welcomeButton' class='button'>Se køreplan</button>";
+        message += "<button id='welcomeButton' onclick=\"javascript:$('#myModal').foundation('reveal', 'close');\" class='button'>Se køreplan</button>";
 
         
         ShowAlert(title, message);
 
 
-        $("document").on("click", "#welcomeButton", function () {
+        //$("body").on("click", "#welcomeButton", function () {
 
-            $('#myModal').foundation('reveal', 'close');
-        });
+        //    $('#myModal').foundation('reveal', 'close');
+        //});
 
        
 
