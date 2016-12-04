@@ -6393,14 +6393,27 @@ nav {
     -moz-transition: all false false false;
     -o-transition: all false false false;
     border-bottom: solid 1px #c9c9c9; }
-    .accordion .accordion-navigation.passed {
+    .accordion .accordion-navigation.status-passed {
       opacity: 1;
       filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); }
-      .accordion .accordion-navigation.passed .item-link {
+      .accordion .accordion-navigation.status-passed .item-link {
         border-color: grey; }
-        .accordion .accordion-navigation.passed .item-link .time i.fi-check {
+        .accordion .accordion-navigation.status-passed .item-link .time i.fi-check {
           display: inline-block;
           color: green; }
+    .accordion .accordion-navigation.status-cancelled {
+      opacity: 1;
+      filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); }
+      .accordion .accordion-navigation.status-cancelled .item-link {
+        text-decoration: line-through;
+        border-color: grey; }
+        .accordion .accordion-navigation.status-cancelled .item-link .time i.fi-prohibited {
+          display: inline-block;
+          color: #c80018; }
+        .accordion .accordion-navigation.status-cancelled .item-link .time, .accordion .accordion-navigation.status-cancelled .item-link .passengersAmount {
+          text-decoration: line-through; }
+      .accordion .accordion-navigation.status-cancelled .item-content {
+        text-decoration: line-through; }
     .accordion .accordion-navigation.status-updated {
       border-left: solid 5px #c80018;
       background-color: #c80018; }
@@ -6438,7 +6451,7 @@ nav {
         float: left;
         width: 50%;
         margin-bottom: 10px; }
-        .accordion .accordion-navigation .item-link .time i.fi-check {
+        .accordion .accordion-navigation .item-link .time i.fi-check, .accordion .accordion-navigation .item-link .time i.fi-prohibited {
           display: none;
           float: left;
           margin-right: 5px; }

@@ -57,7 +57,7 @@ nav {
 
         border-bottom: solid 1px #c9c9c9;
 
-        &.passed {
+        &.status-passed {
             @include opacity(1.0);
 
             .item-link {
@@ -68,6 +68,30 @@ nav {
 
                     color: green;
                 }
+            }
+        }
+
+        &.status-cancelled {
+            @include opacity(1.0);
+
+            .item-link {
+                text-decoration: line-through;
+
+                border-color: grey;
+
+                .time i.fi-prohibited {
+                    display: inline-block;
+
+                    color: $cancel;
+                }
+
+                .time, .passengersAmount {
+                    text-decoration: line-through;
+                }
+            }
+
+            .item-content {
+                text-decoration: line-through;
             }
         }
 
@@ -119,7 +143,7 @@ nav {
                 width: 50%;
                 margin-bottom: 10px;
 
-                i.fi-check {
+                i.fi-check, i.fi-prohibited {
                     display: none;
                     float: left;
 

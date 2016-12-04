@@ -6302,18 +6302,25 @@ define('fares',['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) 
                         // Clear storage
                         ClearStorage();
 
-                        ShowAlert("Tak", "Din vagt er frigivet og du er nu logget ud. Du bliver omstillet til forsiden...");
+                        //ShowAlert("Tak", "Din vagt er frigivet og du er nu logget ud. Du bliver omstillet til forsiden...");
+
+                        setTimeout(function () {
+                            location.href = "login.html";
+
+                        }, 200);
 
                     }
                     else {
                         ShowAlert("Fejl", "Din brugers vagt blev ikke frigivet korrekt. <br />Til reference var dine logud informationer. Brugernavn: " + username + " Adgangskode: " + password + " Firma: " + company + " VagtID: " + vagtID + "<br />Du bliver nu omstillet til forsiden...");
+
+
+                        setTimeout(function () {
+                            location.href = "login.html";
+                        }, 7000);
+
                     }
 
-                    setTimeout(function () {
-                        // Redirect
-                        location.href = "login.html";
-
-                    }, 7000);
+        
 
                 },
                 error: function (xhr, textStatus, errorThrown) {
@@ -6335,7 +6342,7 @@ define('fares',['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) 
                 // Redirect
                 location.href = "login.html";
 
-            }, 7000);
+            }, 5000);
 
         }
                
@@ -6503,10 +6510,14 @@ define('fares',['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) 
                     
                     // Add "passed" class if current time is more than arrival time
                     if (todaysDate > arrivalDateTime) {
-                        $(this).addClass("passed");
+
+                        // Only add status-passed if there is not other status before
+                        if ($(this).hasClass("status-cancelled") == false) {
+                            $(this).addClass("status-passed");
+                        }                      
                     }
                     else {
-                        $(this).removeClass("passed");
+                        $(this).removeClass("status-passed");
 
                         if (firstElementIndex == false) {
                             $(this).addClass("upcoming-fare");
@@ -6527,12 +6538,16 @@ define('fares',['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) 
                         var startMinute = startTimeArr[1];
                         var startDateTime = new Date(selectedYear, selectedMonth, selectedDay, startHour, startMinute);
 
-                        // Add "passed" class if current time is more than start time
+                        // Add "status-passed" class if current time is more than start time
                         if (todaysDate > startDateTime) {
-                            $(this).addClass("passed");
+
+                            // Only add status-passed if there is not other status before
+                            if ($(this).hasClass("status-cancelled") == false) {
+                                $(this).addClass("status-passed");
+                            }
                         }
                         else {
-                            $(this).removeClass("passed");
+                            $(this).removeClass("status-passed");
 
                             if (firstElementIndex == false) {
                                 $(this).addClass("upcoming-fare");
@@ -6649,7 +6664,7 @@ define('fares',['jquery', 'tinysort', 'howler'], function ($, tinysort, howler) 
             htmlFare += '>';
             htmlFare += '<a href="#fare' +  i + '" class="item-link">';
 
-            htmlFare += '<div class="time left"><i class="fi-check"></i>';
+            htmlFare += '<div class="time left"><i class="fi-check"></i><i class="fi-prohibited"></i>';
 
             // Afgangstid
             if (fares[i].Afgangstid != null) {
